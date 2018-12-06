@@ -10,6 +10,7 @@ namespace ConsoleAppTester
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Bella Ciao");
         }
     }
 }
