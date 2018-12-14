@@ -12,9 +12,8 @@ namespace DataAccessLayer
     {
         private List<GooglePlace> _googlePlaces = new List<GooglePlace>();
 
-        //ucitavanje jsona
-        //string url = "";
-        public GooglePlaceRepository(string url)
+
+        public GooglePlaceRepository(string url /*,string type*/)
         {
             string json = CallRestMethod(url);
 
@@ -30,30 +29,12 @@ namespace DataAccessLayer
                         Id = (string)place.GetValue("id"),
                         Name = (string)place.GetValue("name"),
                         Lat = (double)place.SelectToken("geometry.location.lat"),
-                        Lng = (double)place.SelectToken("geometry.location.lng")
+                        Lng = (double)place.SelectToken("geometry.location.lng"),
+                        //Type= type
                     });
             }
         }
-        /*public GooglePlaceRepository()
-        {
-            using (StreamReader readFile = new StreamReader("C:/Users/Korisnik/source/repos/josipbarisic/WindowsFormsGooglePlaces/WindowsFormsGooglePlaces/gPlaces.json"))
-            {
-                var json = readFile.ReadToEnd();
-                var jsonObject = JObject.Parse(json);
-                var results = jsonObject["results"];
-                foreach(JObject place in results)
-                {
-                    _googlePlaces.Add(
-                       new GooglePlace
-                       {
-                           Id = (string)place.GetValue("id"),
-                           Name = (string)place.GetValue("name"),
-                           Lat = (double)place.SelectToken("geometry.location.lat"),
-                           Lng = (double)place.SelectToken("geometry.location.lng")
-                       });
-                }
-            }
-        }*/
+        
 
         public List<GooglePlace> GetAll()
         {
