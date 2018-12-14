@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DataAccessLayer
@@ -12,12 +11,14 @@ namespace DataAccessLayer
     public class GooglePlaceRepository
     {
         private List<GooglePlace> _googlePlaces = new List<GooglePlace>();
-        string url = "";
-        /*public GooglePlaceRepository()
+
+        //ucitavanje jsona
+        //string url = "";
+        public GooglePlaceRepository(string url)
         {
             string json = CallRestMethod(url);
 
-            JArray jsonObject = JArray.Parse(json);
+            JObject jsonObject = JObject.Parse(json);
             JToken results = jsonObject.SelectToken("results");
 
             foreach (JObject place in results)
@@ -26,31 +27,33 @@ namespace DataAccessLayer
                 _googlePlaces.Add(
                     new GooglePlace
                     {
-                        Id = (int)place.GetValue("id"),
+                        Id = (string)place.GetValue("id"),
                         Name = (string)place.GetValue("name"),
                         Lat = (double)place.SelectToken("geometry.location.lat"),
                         Lng = (double)place.SelectToken("geometry.location.lng")
                     });
             }
-        }*/
-        public GooglePlaceRepository()
-        {
-            JObject json = JObject.Parse(File.ReadAllText("C:/Users/student/Downloads/example.json"));
-            
-            JToken results = json["results"];
-
-            foreach (JObject place in results)
-            {
-                _googlePlaces.Add(
-                    new GooglePlace
-                    {
-                        Id = (int)place.GetValue("id"),
-                        Name = (string)place.GetValue("name"),
-                        Lat = (double)place.GetValue("[geometry][location][lat]"),
-                        //Lng = (double)place.SelectToken("geometry.location.lng")
-                    });
-            }
         }
+        /*public GooglePlaceRepository()
+        {
+            using (StreamReader readFile = new StreamReader("C:/Users/Korisnik/source/repos/josipbarisic/WindowsFormsGooglePlaces/WindowsFormsGooglePlaces/gPlaces.json"))
+            {
+                var json = readFile.ReadToEnd();
+                var jsonObject = JObject.Parse(json);
+                var results = jsonObject["results"];
+                foreach(JObject place in results)
+                {
+                    _googlePlaces.Add(
+                       new GooglePlace
+                       {
+                           Id = (string)place.GetValue("id"),
+                           Name = (string)place.GetValue("name"),
+                           Lat = (double)place.SelectToken("geometry.location.lat"),
+                           Lng = (double)place.SelectToken("geometry.location.lng")
+                       });
+                }
+            }
+        }*/
 
         public List<GooglePlace> GetAll()
         {
