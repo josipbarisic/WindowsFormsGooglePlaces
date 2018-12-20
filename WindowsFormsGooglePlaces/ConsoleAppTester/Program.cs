@@ -13,24 +13,41 @@ namespace ConsoleAppTester
     {
         static void Main(string[] args)
         {
-            //Unos url-a
-            Console.WriteLine("Unesi radius:");
-            var radius = Console.ReadLine();
-            Console.WriteLine("Unesi tip:");
+            //TYPES
+            /*var repoTypes = new TypeRepository();
+            DataAccessLayer.Type typeObject = new DataAccessLayer.Type { sType = "airport", sTypeView = "Airport", sIcon = "airport.icon" };
+            repoTypes.AddType(typeObject);
+            repoTypes.DeleteType("Airport");*/
+
+            //PLACES
+            /*Console.WriteLine("Unesi radius:");
+            int radius = Convert.ToInt32(Console.ReadLine());
+            */Console.WriteLine("Unesi tip:");
             var tip = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Unesi latitudu:");
-            var latituda = Console.ReadLine();
+            Console.WriteLine("Unesi ime:");
+            var ime = Convert.ToString(Console.ReadLine());
+            /*Console.WriteLine("Unesi latitudu:");
+            double latituda = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Unesi longitudu:");
-            var longituda = Console.ReadLine();
-
-            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ latituda + ","+ longituda +"&radius="+ radius +"&type="+ tip +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
-
-            var repo = new GooglePlaceRepository(url);
-            var place = repo.GetAll();
-            foreach(var pl in place)
+            double longituda = Convert.ToDouble(Console.ReadLine());*/
+            var imeRestorana = "";
+            var repo = new GooglePlaceRepository();
+            var getall = repo.SearchPlace(5000, tip, -33.9, 151.19);
+            List<string> tipovi = new List<string>();
+            repo.DeletePlace(ime);
+            foreach (var pl in getall)
             {
+                repo.DeletePlace(ime);
                 Console.WriteLine(pl.Name);
+                Console.WriteLine("Tipovi: ");
+                foreach(var type in pl.Type)
+                {
+                    Console.WriteLine(type);
+                }
+                Console.WriteLine("\n");
             }
+            Console.WriteLine();
+            //repo.AddPlace(getall);
             Console.ReadKey();
         }
     }

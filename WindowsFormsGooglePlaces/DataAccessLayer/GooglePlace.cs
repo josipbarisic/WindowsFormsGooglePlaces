@@ -10,7 +10,8 @@ namespace DataAccessLayer
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public decimal Lat { get; set; }
+        public decimal Lng { get; set; }
+        public List<string> Type { get; set; }
     }
 }

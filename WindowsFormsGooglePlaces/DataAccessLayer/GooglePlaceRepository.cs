@@ -5,60 +5,55 @@ using System.IO;
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
     public class GooglePlaceRepository
     {
-        private List<GooglePlace> _googlePlaces = new List<GooglePlace>();
 
-        //ucitavanje jsona
-        //string url = "";
-        public GooglePlaceRepository(string url)
+        public GooglePlaceRepository()
         {
-            string json = CallRestMethod(url);
+            //
+        }
 
+        public List<GooglePlace> _googlePlaces = new List<GooglePlace>();
+
+        public List<GooglePlace> SearchPlace(int radius, string type, double lat, double lng)
+        {
+
+            string json = CallRestMethod(GenerateUrl(radius,type,lat,lng));
             JObject jsonObject = JObject.Parse(json);
             JToken results = jsonObject.SelectToken("results");
 
             foreach (JObject place in results)
             {
+                List<string> tipovi = new List<string>();
+                foreach(string poljeTypes in place.GetValue("types"))
+                {
+                    tipovi.Add(poljeTypes);
+                }
 
                 _googlePlaces.Add(
                     new GooglePlace
                     {
                         Id = (string)place.GetValue("id"),
                         Name = (string)place.GetValue("name"),
-                        Lat = (double)place.SelectToken("geometry.location.lat"),
-                        Lng = (double)place.SelectToken("geometry.location.lng")
+                        Lat = (decimal)place.SelectToken("geometry.location.lat"),
+                        Lng = (decimal)place.SelectToken("geometry.location.lng"),
+                        Type = tipovi
                     });
             }
-        }
-        /*public GooglePlaceRepository()
-        {
-            using (StreamReader readFile = new StreamReader("C:/Users/Korisnik/source/repos/josipbarisic/WindowsFormsGooglePlaces/WindowsFormsGooglePlaces/gPlaces.json"))
-            {
-                var json = readFile.ReadToEnd();
-                var jsonObject = JObject.Parse(json);
-                var results = jsonObject["results"];
-                foreach(JObject place in results)
-                {
-                    _googlePlaces.Add(
-                       new GooglePlace
-                       {
-                           Id = (string)place.GetValue("id"),
-                           Name = (string)place.GetValue("name"),
-                           Lat = (double)place.SelectToken("geometry.location.lat"),
-                           Lng = (double)place.SelectToken("geometry.location.lng")
-                       });
-                }
-            }
-        }*/
-
-        public List<GooglePlace> GetAll()
-        {
             return _googlePlaces;
         }
+        //Metoda za izradu url-a
+        public string GenerateUrl(int radius, string type, double lat, double lng)
+        {
+            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius="+ radius +"&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
+            return url;
+        }       
+
         public static string CallRestMethod(string url)
         {
             HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
@@ -71,6 +66,44 @@ namespace DataAccessLayer
             result = responseStream.ReadToEnd();
             webresponse.Close();
             return result;
+        }
+
+        public void AddPlace(GooglePlace place, string tajp)
+        {
+            string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
+            using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
+            using (DbCommand oCommand = oConnection.CreateCommand())
+            {
+                string types = "";
+                foreach (var tip in place.Type)
+                {
+                    if(tip == tajp)
+                    {
+                        types = tip;
+                    }
+                }
+                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + types + "')";
+                oConnection.Open();
+                using (DbDataReader oReader = oCommand.ExecuteReader())
+                {
+                    oReader.Read();
+                }
+            }
+        }
+
+        public void DeletePlace(string naziv)
+        {
+            string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
+            using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
+            using (DbCommand oCommand = oConnection.CreateCommand())
+            {
+                oCommand.CommandText = "DELETE FROM GooglePlaces_Places WHERE Name = '" + naziv + "'";
+                oConnection.Open();
+                using (DbDataReader oReader = oCommand.ExecuteReader())
+                {
+                    oReader.Read();
+                }
+            }
         }
     }
 }
