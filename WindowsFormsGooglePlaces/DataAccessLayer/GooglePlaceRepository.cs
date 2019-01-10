@@ -74,15 +74,16 @@ namespace DataAccessLayer
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
             using (DbCommand oCommand = oConnection.CreateCommand())
             {
-                string types = "";
+                string sType = "";
                 foreach (var tip in place.Type)
                 {
                     if(tip == tajp)
                     {
-                        types = tip;
+                        sType = tip;
                     }
                 }
-                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + types + "')";
+                
+                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + sType + "')";
                 oConnection.Open();
                 using (DbDataReader oReader = oCommand.ExecuteReader())
                 {
@@ -104,6 +105,33 @@ namespace DataAccessLayer
                     oReader.Read();
                 }
             }
+        }
+
+        public List<GooglePlace> GetPlaces()
+        {
+            var places = new List<GooglePlace>();
+            string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
+            using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
+            using (DbCommand command = oConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM GooglePlaces_Places";
+                oConnection.Open();
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        places.Add(new GooglePlace()
+                        {
+                            Id = (string)reader["Id"],
+                            Name = (string)reader["Name"],
+                            Lat = (decimal)reader["Lat"],
+                            Lng = (decimal)reader["Lng"],
+                            //Type = (List<string>)reader["Type"]
+                        });
+                    }
+                }
+            }
+            return places;
         }
     }
 }

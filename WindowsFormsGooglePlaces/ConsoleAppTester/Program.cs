@@ -14,30 +14,31 @@ namespace ConsoleAppTester
         static void Main(string[] args)
         {
             //TYPES
-            /*var repoTypes = new TypeRepository();
-            DataAccessLayer.Type typeObject = new DataAccessLayer.Type { sType = "airport", sTypeView = "Airport", sIcon = "airport.icon" };
+            var repoTypes = new TypeRepository();
+            DataAccessLayer.Type typeObject = new DataAccessLayer.Type { sType = "hospital", sTypeView = "Hospital", sIcon = "" };
             repoTypes.AddType(typeObject);
-            repoTypes.DeleteType("Airport");*/
 
             //PLACES
             /*Console.WriteLine("Unesi radius:");
             int radius = Convert.ToInt32(Console.ReadLine());
-            */Console.WriteLine("Unesi tip:");
-            var tip = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Unesi ime:");
-            var ime = Convert.ToString(Console.ReadLine());
+            */
+            Console.WriteLine("OK");
+            //var tip = Convert.ToString(Console.ReadLine());
+
+            /*Console.WriteLine("Unesi ime:");
+            var ime = Convert.ToString(Console.ReadLine());*/
+
             /*Console.WriteLine("Unesi latitudu:");
             double latituda = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Unesi longitudu:");
             double longituda = Convert.ToDouble(Console.ReadLine());*/
-            var imeRestorana = "";
             var repo = new GooglePlaceRepository();
-            var getall = repo.SearchPlace(5000, tip, -33.9, 151.19);
+            //var getall = repo.SearchPlace(5000, tip, -33.9, 151.19);
             List<string> tipovi = new List<string>();
-            repo.DeletePlace(ime);
-            foreach (var pl in getall)
+            //repo.DeletePlace(ime);
+            /*foreach (var pl in getall)
             {
-                repo.DeletePlace(ime);
+                repo.AddPlace(pl, "food");
                 Console.WriteLine(pl.Name);
                 Console.WriteLine("Tipovi: ");
                 foreach(var type in pl.Type)
@@ -45,10 +46,11 @@ namespace ConsoleAppTester
                     Console.WriteLine(type);
                 }
                 Console.WriteLine("\n");
-            }
-            Console.WriteLine();
-            //repo.AddPlace(getall);
+            }*/
             Console.ReadKey();
         }
     }
 }
+
+//PONAVLJAJU SE VRIJEDNOSTI ID, TYPE RADI SAMO ZA JEDNO MJESTO (GooglePlaceRepository AddPlace funckija)
+//U DATAGRID-U SE NE MOZE ISPISAT TIP MJESTA ()
