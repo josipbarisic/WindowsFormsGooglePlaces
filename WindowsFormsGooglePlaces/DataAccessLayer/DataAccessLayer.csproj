@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="City.cs" />
+    <Compile Include="CityRepository.cs" />
     <Compile Include="GooglePlace.cs" />
     <Compile Include="GooglePlaceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class GooglePlace
+    public class City
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public decimal Lat { get; set; }
-        public decimal Lng { get; set; }
-        public string Type { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

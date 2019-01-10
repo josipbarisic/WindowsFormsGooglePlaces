@@ -13,16 +13,17 @@ namespace ConsoleAppTester
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("OK");
             //TYPES
-            var repoTypes = new TypeRepository();
-            DataAccessLayer.Type typeObject = new DataAccessLayer.Type { sType = "hospital", sTypeView = "Hospital", sIcon = "" };
-            repoTypes.AddType(typeObject);
+            /*var repoTypes = new TypeRepository();
+            DataAccessLayer.Type typeObject = new DataAccessLayer.Type { sType = "hospital", sTypeView = "Hospital", sIcon = "" };*/
+            //repoTypes.AddType(typeObject);
 
             //PLACES
             /*Console.WriteLine("Unesi radius:");
             int radius = Convert.ToInt32(Console.ReadLine());
             */
-            Console.WriteLine("OK");
+            //Console.WriteLine("Unesi tip");
             //var tip = Convert.ToString(Console.ReadLine());
 
             /*Console.WriteLine("Unesi ime:");
@@ -36,17 +37,21 @@ namespace ConsoleAppTester
             //var getall = repo.SearchPlace(5000, tip, -33.9, 151.19);
             List<string> tipovi = new List<string>();
             //repo.DeletePlace(ime);
-            /*foreach (var pl in getall)
+            //foreach (var pl in getall)
             {
-                repo.AddPlace(pl, "food");
-                Console.WriteLine(pl.Name);
+                //repo.AddPlace(pl);
+                /*Console.WriteLine(pl.Name);
                 Console.WriteLine("Tipovi: ");
                 foreach(var type in pl.Type)
                 {
                     Console.WriteLine(type);
                 }
-                Console.WriteLine("\n");
-            }*/
+                Console.WriteLine("\n");*/
+            }
+            //CITY
+            var repoG = new CityRepository();
+            repoG.AddCity("Virovitica", 45.831646, 17.385543);
+            Console.WriteLine("OK");
             Console.ReadKey();
         }
     }

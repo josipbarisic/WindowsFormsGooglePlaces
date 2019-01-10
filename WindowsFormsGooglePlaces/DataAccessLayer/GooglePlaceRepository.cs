@@ -29,12 +29,6 @@ namespace DataAccessLayer
 
             foreach (JObject place in results)
             {
-                List<string> tipovi = new List<string>();
-                foreach(string poljeTypes in place.GetValue("types"))
-                {
-                    tipovi.Add(poljeTypes);
-                }
-
                 _googlePlaces.Add(
                     new GooglePlace
                     {
@@ -42,7 +36,7 @@ namespace DataAccessLayer
                         Name = (string)place.GetValue("name"),
                         Lat = (decimal)place.SelectToken("geometry.location.lat"),
                         Lng = (decimal)place.SelectToken("geometry.location.lng"),
-                        Type = tipovi
+                        Type = type
                     });
             }
             return _googlePlaces;
@@ -68,22 +62,14 @@ namespace DataAccessLayer
             return result;
         }
 
-        public void AddPlace(GooglePlace place, string tajp)
+        public void AddPlace(GooglePlace place)
         {
             string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
             using (DbCommand oCommand = oConnection.CreateCommand())
             {
-                string sType = "";
-                foreach (var tip in place.Type)
-                {
-                    if(tip == tajp)
-                    {
-                        sType = tip;
-                    }
-                }
                 
-                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + sType + "')";
+                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + place.Type + "')";
                 oConnection.Open();
                 using (DbDataReader oReader = oCommand.ExecuteReader())
                 {
@@ -126,7 +112,7 @@ namespace DataAccessLayer
                             Name = (string)reader["Name"],
                             Lat = (decimal)reader["Lat"],
                             Lng = (decimal)reader["Lng"],
-                            //Type = (List<string>)reader["Type"]
+                            Type = (string)reader["Type"]
                         });
                     }
                 }
