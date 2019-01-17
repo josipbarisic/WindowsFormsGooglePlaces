@@ -41,5 +41,46 @@ namespace DataAccessLayer
                 }
             }
         }
+
+        //Dohvati sve tipove
+        public List<Type> GetAllTypes()
+        {
+            var types = new List<Type>();
+            string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
+            using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
+            using (DbCommand command = oConnection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM GooglePlaces_Types";
+                oConnection.Open();
+                using (DbDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        types.Add(new Type()
+                        {
+                            sType = (string)reader["Type"],
+                            sTypeView = (string)reader["TypeView"],
+                            sIcon = (string)reader["Icon"]
+                        });
+                    }
+                }
+            }
+            return types;
+        }
+
+        //DOHVATI ODABRANI TIP
+        public string GetSelectedType(string type)
+        {
+            string sTip = "Tip nije pronaden";
+            var oTypes = GetAllTypes();
+            foreach(var tip in oTypes)
+            {
+                if(type == tip.sTypeView)
+                {
+                    sTip = tip.sType;
+                }
+            }
+            return sTip;
+        }
     }
 }

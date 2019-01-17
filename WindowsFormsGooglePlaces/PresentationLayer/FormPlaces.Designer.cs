@@ -28,79 +28,183 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewPlaces = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.Pretraga = new System.Windows.Forms.TabPage();
+            this.tabMojaMjesta = new System.Windows.Forms.TabPage();
+            this.comboBoxGradovi = new System.Windows.Forms.ComboBox();
+            this.Naslov = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.buttonPretragaMjesta = new System.Windows.Forms.Button();
+            this.dataGridViewMojaMjesta = new System.Windows.Forms.DataGridView();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lng = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlaces)).BeginInit();
+            this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl.SuspendLayout();
+            this.Pretraga.SuspendLayout();
+            this.tabMojaMjesta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMojaMjesta)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridViewPlaces
+            // tabControl
             // 
-            this.dataGridViewPlaces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPlaces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
+            this.tabControl.Controls.Add(this.Pretraga);
+            this.tabControl.Controls.Add(this.tabMojaMjesta);
+            this.tabControl.Location = new System.Drawing.Point(12, 12);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(485, 426);
+            this.tabControl.TabIndex = 1;
+            // 
+            // Pretraga
+            // 
+            this.Pretraga.Controls.Add(this.buttonPretragaMjesta);
+            this.Pretraga.Controls.Add(this.comboBox1);
+            this.Pretraga.Controls.Add(this.label2);
+            this.Pretraga.Controls.Add(this.label1);
+            this.Pretraga.Controls.Add(this.Naslov);
+            this.Pretraga.Controls.Add(this.comboBoxGradovi);
+            this.Pretraga.Location = new System.Drawing.Point(4, 22);
+            this.Pretraga.Name = "Pretraga";
+            this.Pretraga.Padding = new System.Windows.Forms.Padding(3);
+            this.Pretraga.Size = new System.Drawing.Size(477, 400);
+            this.Pretraga.TabIndex = 0;
+            this.Pretraga.Text = "Pretraga";
+            this.Pretraga.UseVisualStyleBackColor = true;
+            // 
+            // tabMojaMjesta
+            // 
+            this.tabMojaMjesta.Controls.Add(this.dataGridViewMojaMjesta);
+            this.tabMojaMjesta.Location = new System.Drawing.Point(4, 22);
+            this.tabMojaMjesta.Name = "tabMojaMjesta";
+            this.tabMojaMjesta.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMojaMjesta.Size = new System.Drawing.Size(477, 400);
+            this.tabMojaMjesta.TabIndex = 1;
+            this.tabMojaMjesta.Text = "Moja mjesta";
+            this.tabMojaMjesta.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxGradovi
+            // 
+            this.comboBoxGradovi.FormattingEnabled = true;
+            this.comboBoxGradovi.Location = new System.Drawing.Point(174, 129);
+            this.comboBoxGradovi.Name = "comboBoxGradovi";
+            this.comboBoxGradovi.Size = new System.Drawing.Size(201, 21);
+            this.comboBoxGradovi.TabIndex = 0;
+            // 
+            // Naslov
+            // 
+            this.Naslov.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Naslov.AutoSize = true;
+            this.Naslov.Font = new System.Drawing.Font("Verdana", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Naslov.Location = new System.Drawing.Point(92, 44);
+            this.Naslov.Name = "Naslov";
+            this.Naslov.Size = new System.Drawing.Size(283, 42);
+            this.Naslov.TabIndex = 1;
+            this.Naslov.Text = "Pretraži mjesta";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(43, 129);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 21);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Odaberite grad:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(43, 167);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(163, 21);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Odaberite tip mjesta:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(213, 166);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(162, 21);
+            this.comboBox1.TabIndex = 4;
+            // 
+            // buttonPretragaMjesta
+            // 
+            this.buttonPretragaMjesta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPretragaMjesta.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPretragaMjesta.Location = new System.Drawing.Point(193, 230);
+            this.buttonPretragaMjesta.Name = "buttonPretragaMjesta";
+            this.buttonPretragaMjesta.Size = new System.Drawing.Size(138, 43);
+            this.buttonPretragaMjesta.TabIndex = 5;
+            this.buttonPretragaMjesta.Text = "Pretraga";
+            this.buttonPretragaMjesta.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewMojaMjesta
+            // 
+            this.dataGridViewMojaMjesta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewMojaMjesta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMojaMjesta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
-            this.Lat,
-            this.Lng,
-            this.Type});
-            this.dataGridViewPlaces.Location = new System.Drawing.Point(102, 65);
-            this.dataGridViewPlaces.Name = "dataGridViewPlaces";
-            this.dataGridViewPlaces.Size = new System.Drawing.Size(562, 279);
-            this.dataGridViewPlaces.TabIndex = 0;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
+            this.Type,
+            this.City});
+            this.dataGridViewMojaMjesta.Location = new System.Drawing.Point(46, 6);
+            this.dataGridViewMojaMjesta.Name = "dataGridViewMojaMjesta";
+            this.dataGridViewMojaMjesta.Size = new System.Drawing.Size(381, 388);
+            this.dataGridViewMojaMjesta.TabIndex = 0;
             // 
             // Name
             // 
-            this.Name.DataPropertyName = "Name";
             this.Name.HeaderText = "Name";
             this.Name.Name = "Name";
             // 
-            // Lat
-            // 
-            this.Lat.DataPropertyName = "Lat";
-            this.Lat.HeaderText = "Latitude";
-            this.Lat.Name = "Lat";
-            // 
-            // Lng
-            // 
-            this.Lng.DataPropertyName = "Lng";
-            this.Lng.HeaderText = "Longitude";
-            this.Lng.Name = "Lng";
-            // 
             // Type
             // 
-            this.Type.DataPropertyName = "Type";
             this.Type.HeaderText = "Type";
             this.Type.Name = "Type";
+            // 
+            // City
+            // 
+            this.City.HeaderText = "City";
+            this.City.Name = "City";
             // 
             // FormPlaces
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridViewPlaces);
+            this.Controls.Add(this.tabControl);
+            this.Name = "FormPlaces";
             this.Text = "FormPlaces";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPlaces)).EndInit();
+            this.tabControl.ResumeLayout(false);
+            this.Pretraga.ResumeLayout(false);
+            this.Pretraga.PerformLayout();
+            this.tabMojaMjesta.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMojaMjesta)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridViewPlaces;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage Pretraga;
+        private System.Windows.Forms.Button buttonPretragaMjesta;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Naslov;
+        private System.Windows.Forms.ComboBox comboBoxGradovi;
+        private System.Windows.Forms.TabPage tabMojaMjesta;
+        private System.Windows.Forms.DataGridView dataGridViewMojaMjesta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lat;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Lng;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn City;
     }
 }
 

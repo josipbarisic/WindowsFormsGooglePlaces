@@ -12,22 +12,30 @@ namespace DataAccessLayer
 {
     public class CityRepository
     {
-        //ako ne radi, onda samo getCities funkciju 
-        public void AddCity(string name, string latitude, string longitude)
+        //DOHVATI GRADOVE IZ BP 
+        public List<City> GetCities()
         {
-            string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
+            var cities = new List<City>();
+            string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
-            using (DbCommand oCommand = oConnection.CreateCommand())
+            using (DbCommand command = oConnection.CreateCommand())
             {
-
-                oCommand.CommandText = "INSERT INTO GooglePlaces_Cities (Name, Latitude, Longitude) VALUES  ('" + name + "', " + latitude + ", " + longitude + ")";
-                Console.WriteLine(oCommand.CommandText);
+                command.CommandText = "SELECT * FROM GooglePlaces_Cities";
                 oConnection.Open();
-                using (DbDataReader oReader = oCommand.ExecuteReader())
+                using (DbDataReader reader = command.ExecuteReader())
                 {
-                    oReader.Read();
+                    while (reader.Read())
+                    {
+                        cities.Add(new City()
+                        {
+                            Name = (string)reader["Name"],
+                            Latitude = (decimal)reader["Latitude"],
+                            Longitude = (decimal)reader["Longitude"]
+                        });
+                    }
                 }
             }
+            return cities;
         }
 
     }

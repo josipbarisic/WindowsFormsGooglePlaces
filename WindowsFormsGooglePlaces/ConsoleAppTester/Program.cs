@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace ConsoleAppTester
 {
@@ -20,37 +21,59 @@ namespace ConsoleAppTester
             //repoTypes.AddType(typeObject);
 
             //PLACES
+
+            //PRETRAZI MJESTA
             /*Console.WriteLine("Unesi radius:");
             int radius = Convert.ToInt32(Console.ReadLine());
             */
             //Console.WriteLine("Unesi tip");
             //var tip = Convert.ToString(Console.ReadLine());
 
-            /*Console.WriteLine("Unesi ime:");
-            var ime = Convert.ToString(Console.ReadLine());*/
-
             /*Console.WriteLine("Unesi latitudu:");
             double latituda = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Unesi longitudu:");
             double longituda = Convert.ToDouble(Console.ReadLine());*/
+
             var repo = new GooglePlaceRepository();
-            //var getall = repo.SearchPlace(5000, tip, -33.9, 151.19);
-            List<string> tipovi = new List<string>();
-            //repo.DeletePlace(ime);
-            //foreach (var pl in getall)
-            {
-                //repo.AddPlace(pl);
-                /*Console.WriteLine(pl.Name);
-                Console.WriteLine("Tipovi: ");
-                foreach(var type in pl.Type)
-                {
-                    Console.WriteLine(type);
-                }
-                Console.WriteLine("\n");*/
-            }
-            //CITY
+            //var getall = repo.SearchPlace("bus_station", 45.841820, 17.388466);
+
+            //PRETRAGA MJESTA PO GRADU
+            //var mjesta = repo.GetCityPlaces("Zagreb","political");
+
+            //DOHVATI ODABRANI TIP
+            var repoTypes = new TypeRepository();
+            //var getTypes = repoTypes.GetSelectedType("Airport");
+            //Console.WriteLine(getTypes);
+
+
+            var grad = Console.ReadLine();
+            var tip = Convert.ToString(Console.ReadLine());
+
+
+            //DOHVATI GRADOVE IZ BP
             var repoG = new CityRepository();
-            repoG.AddCity("Virovitica", 45.831646, 17.385543);
+            var getCities = repoG.GetCities();
+
+            //PRETRAGA MJESTA PO GRADU I TIPU
+            foreach (var city in getCities)
+            {
+                if(String.Equals(grad, city.Name, StringComparison.OrdinalIgnoreCase))
+                {
+                    var search = repo.SearchPlace(tip, (double)city.Latitude, (double)city.Longitude);
+                    foreach(var place1 in search)
+                    {
+                        Console.WriteLine(place1.Name);
+                    }
+                }  
+            }
+            
+
+            //OBRISI MJESTO
+            /*Console.WriteLine("Unesi ime:");
+            var ime = Convert.ToString(Console.ReadLine());*/
+            //repo.DeletePlace(ime);
+
+            
             Console.WriteLine("OK");
             Console.ReadKey();
         }

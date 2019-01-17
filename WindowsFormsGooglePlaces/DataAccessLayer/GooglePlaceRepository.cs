@@ -20,10 +20,10 @@ namespace DataAccessLayer
 
         public List<GooglePlace> _googlePlaces = new List<GooglePlace>();
 
-        public List<GooglePlace> SearchPlace(int radius, string type, double lat, double lng)
+        //PRETRAZI MJESTA
+        public List<GooglePlace> SearchPlace(string type, double lat, double lng)
         {
-
-            string json = CallRestMethod(GenerateUrl(radius,type,lat,lng));
+            string json = CallRestMethod(GenerateUrl(type,lat,lng));
             JObject jsonObject = JObject.Parse(json);
             JToken results = jsonObject.SelectToken("results");
 
@@ -42,9 +42,9 @@ namespace DataAccessLayer
             return _googlePlaces;
         }
         //Metoda za izradu url-a
-        public string GenerateUrl(int radius, string type, double lat, double lng)
+        public string GenerateUrl(string type, double lat, double lng)
         {
-            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius="+ radius +"&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
+            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius=5000&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
             return url;
         }       
 
@@ -62,6 +62,7 @@ namespace DataAccessLayer
             return result;
         }
 
+        //DODAJ MJESTO
         public void AddPlace(GooglePlace place)
         {
             string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
@@ -78,6 +79,7 @@ namespace DataAccessLayer
             }
         }
 
+        //OBRISI MJESTO
         public void DeletePlace(string naziv)
         {
             string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
@@ -93,6 +95,7 @@ namespace DataAccessLayer
             }
         }
 
+        //DOHVATI SVA MJESTA IZ BP
         public List<GooglePlace> GetPlaces()
         {
             var places = new List<GooglePlace>();
@@ -118,6 +121,36 @@ namespace DataAccessLayer
                 }
             }
             return places;
+        }
+        
+        //DOHVATI MJESTA PO GRADU I TIPU
+        public List<GooglePlace> GetCityPlaces(string grad, string tip)
+        {
+            var repoG = new CityRepository();
+            var getCities = repoG.GetCities();
+
+            List<GooglePlace> oPlaces = new List<GooglePlace>();
+
+            foreach (var city in getCities)
+            {
+                if(city.Name == grad)
+                {
+                    var getall = SearchPlace(tip, (double)city.Latitude, (double)city.Longitude);
+                    //DODAVANJE MJESTA
+                    foreach (var pl in getall)
+                    {
+                        oPlaces.Add(new GooglePlace()
+                        {
+                            Id = pl.Id,
+                            Name = (pl.Name).Replace("'", "`"),
+                            Lat = pl.Lat,
+                            Lng = pl.Lng,
+                            Type = pl.Type
+                        });
+                    }
+                }
+            }
+            return oPlaces;
         }
     }
 }
