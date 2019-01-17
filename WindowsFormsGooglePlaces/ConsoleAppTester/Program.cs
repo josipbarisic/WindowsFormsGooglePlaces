@@ -45,7 +45,7 @@ namespace ConsoleAppTester
             //var getTypes = repoTypes.GetSelectedType("Airport");
             //Console.WriteLine(getTypes);
 
-
+            Console.WriteLine("Unesite grad i tip: ");
             var grad = Console.ReadLine();
             var tip = Convert.ToString(Console.ReadLine());
 
@@ -62,7 +62,7 @@ namespace ConsoleAppTester
                     var search = repo.SearchPlace(tip, (double)city.Latitude, (double)city.Longitude);
                     foreach(var place1 in search)
                     {
-                        Console.WriteLine(place1.Name);
+                        Console.WriteLine(place1.Name+"     Lat: "+place1.Lat+"     Lng:"+place1.Lng);
                     }
                 }  
             }
