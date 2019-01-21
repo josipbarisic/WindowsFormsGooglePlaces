@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormDeletePlace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeletePlace.Designer.cs">
+      <DependentUpon>FormDeletePlace.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPlaces.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDeletePlace.resx">
+      <DependentUpon>FormDeletePlace.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPlaces.resx">
       <DependentUpon>FormPlaces.cs</DependentUpon>
     </EmbeddedResource>

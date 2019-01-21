@@ -18,7 +18,7 @@ namespace PresentationLayer
 
         private GooglePlaceRepository _placesRepository = new GooglePlaceRepository();
 
-        public List<GooglePlace> _placeRepo;
+        public List<GooglePlace> _myPlaces = new List<GooglePlace>();
 
         public List<DataAccessLayer.Type> lTypes;
         private TypeRepository _typeRepository = new TypeRepository();
@@ -33,9 +33,20 @@ namespace PresentationLayer
 
             dataGridViewMojaMjesta.AutoGenerateColumns = false;
 
+            _myPlaces = _placesRepository.GetPlaces();
+
             //Popuni moja mjesta
-            _tableBindingSourcePlaces.DataSource = _placesRepository.GetPlaces();
+            _tableBindingSourcePlaces.DataSource = _myPlaces;
             dataGridViewMojaMjesta.DataSource = _tableBindingSourcePlaces;
+
+            DataGridViewButtonColumn oDeletePlaceButton = new DataGridViewButtonColumn();
+            oDeletePlaceButton.Text = "Obrisi mjesto";
+            oDeletePlaceButton.UseColumnTextForButtonValue = true;
+            oDeletePlaceButton.Width = 100;
+            oDeletePlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewMojaMjesta.Columns.Add(oDeletePlaceButton);
+
+
 
             //Dohvati gradove u comboBoxGradovi
             lCities = _citiesRepository.GetCities();
@@ -59,6 +70,29 @@ namespace PresentationLayer
             var labelText = comboTip + " u " + gradLabel;
             FormSearchedPlaces formPretraga = new FormSearchedPlaces(comboGrad, comboTip, labelText);
             formPretraga.Show();
+        }
+
+        private void dataGridViewMojaMjesta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewMojaMjesta.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+            {
+                var rowPlaceName = Convert.ToString(dataGridViewMojaMjesta.Rows[e.RowIndex].Cells[0].Value);
+
+                foreach (var place in _myPlaces)
+                {
+                    if (place.Name == rowPlaceName)
+                    {
+                        //delete funkcija i potvrdi button
+
+                        FormDeletePlace deleteForma = new FormDeletePlace(rowPlaceName);
+                        deleteForma.Show();
+                    }
+                }
+            }
+
+            dataGridViewMojaMjesta.DataSource = null;
+            _tableBindingSourcePlaces.DataSource = _placesRepository.GetPlaces();
+            dataGridViewMojaMjesta.DataSource = _tableBindingSourcePlaces;
         }
     }
 }

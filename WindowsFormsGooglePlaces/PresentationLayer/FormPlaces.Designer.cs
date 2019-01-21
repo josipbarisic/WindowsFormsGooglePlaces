@@ -54,7 +54,7 @@
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(407, 426);
+            this.tabControl.Size = new System.Drawing.Size(537, 426);
             this.tabControl.TabIndex = 1;
             // 
             // Pretraga
@@ -68,7 +68,7 @@
             this.Pretraga.Location = new System.Drawing.Point(4, 22);
             this.Pretraga.Name = "Pretraga";
             this.Pretraga.Padding = new System.Windows.Forms.Padding(3);
-            this.Pretraga.Size = new System.Drawing.Size(399, 400);
+            this.Pretraga.Size = new System.Drawing.Size(529, 400);
             this.Pretraga.TabIndex = 0;
             this.Pretraga.Text = "Pretraga";
             this.Pretraga.UseVisualStyleBackColor = true;
@@ -76,7 +76,7 @@
             // buttonPretragaMjesta
             // 
             this.buttonPretragaMjesta.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPretragaMjesta.Location = new System.Drawing.Point(114, 284);
+            this.buttonPretragaMjesta.Location = new System.Drawing.Point(183, 283);
             this.buttonPretragaMjesta.Name = "buttonPretragaMjesta";
             this.buttonPretragaMjesta.Size = new System.Drawing.Size(159, 39);
             this.buttonPretragaMjesta.TabIndex = 5;
@@ -87,7 +87,7 @@
             // comboBoxTipovi
             // 
             this.comboBoxTipovi.FormattingEnabled = true;
-            this.comboBoxTipovi.Location = new System.Drawing.Point(97, 218);
+            this.comboBoxTipovi.Location = new System.Drawing.Point(166, 217);
             this.comboBoxTipovi.Name = "comboBoxTipovi";
             this.comboBoxTipovi.Size = new System.Drawing.Size(200, 21);
             this.comboBoxTipovi.TabIndex = 4;
@@ -96,7 +96,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(93, 194);
+            this.label2.Location = new System.Drawing.Point(162, 193);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(163, 21);
             this.label2.TabIndex = 3;
@@ -106,7 +106,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(93, 116);
+            this.label1.Location = new System.Drawing.Point(162, 115);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 21);
             this.label1.TabIndex = 2;
@@ -118,7 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Naslov.AutoSize = true;
             this.Naslov.Font = new System.Drawing.Font("Verdana", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Naslov.Location = new System.Drawing.Point(51, 30);
+            this.Naslov.Location = new System.Drawing.Point(120, 29);
             this.Naslov.Name = "Naslov";
             this.Naslov.Size = new System.Drawing.Size(283, 42);
             this.Naslov.TabIndex = 1;
@@ -127,7 +127,7 @@
             // comboBoxGradovi
             // 
             this.comboBoxGradovi.FormattingEnabled = true;
-            this.comboBoxGradovi.Location = new System.Drawing.Point(97, 140);
+            this.comboBoxGradovi.Location = new System.Drawing.Point(166, 139);
             this.comboBoxGradovi.Name = "comboBoxGradovi";
             this.comboBoxGradovi.Size = new System.Drawing.Size(200, 21);
             this.comboBoxGradovi.TabIndex = 0;
@@ -138,7 +138,7 @@
             this.tabMojaMjesta.Location = new System.Drawing.Point(4, 22);
             this.tabMojaMjesta.Name = "tabMojaMjesta";
             this.tabMojaMjesta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMojaMjesta.Size = new System.Drawing.Size(399, 400);
+            this.tabMojaMjesta.Size = new System.Drawing.Size(529, 400);
             this.tabMojaMjesta.TabIndex = 1;
             this.tabMojaMjesta.Text = "Moja mjesta";
             this.tabMojaMjesta.UseVisualStyleBackColor = true;
@@ -155,8 +155,9 @@
             this.City});
             this.dataGridViewMojaMjesta.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewMojaMjesta.Name = "dataGridViewMojaMjesta";
-            this.dataGridViewMojaMjesta.Size = new System.Drawing.Size(387, 388);
+            this.dataGridViewMojaMjesta.Size = new System.Drawing.Size(517, 388);
             this.dataGridViewMojaMjesta.TabIndex = 0;
+            this.dataGridViewMojaMjesta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMojaMjesta_CellContentClick);
             // 
             // PlaceName
             // 
@@ -180,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 450);
+            this.ClientSize = new System.Drawing.Size(561, 450);
             this.Controls.Add(this.tabControl);
             this.Name = "FormPlaces";
             this.Text = "FormPlaces";

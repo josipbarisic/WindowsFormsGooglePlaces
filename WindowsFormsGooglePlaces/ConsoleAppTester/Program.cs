@@ -59,11 +59,6 @@ namespace ConsoleAppTester
 
             //PRETRAGA MJESTA PO GRADU I TIPU
             var gradTip = repo.GetCityPlaces(grad, tip);
-            
-            foreach(var gradT in gradTip)
-            {
-                repo.AddPlace(gradT);
-            }
 
             //OBRISI MJESTO
             /*Console.WriteLine("Unesi ime:");
