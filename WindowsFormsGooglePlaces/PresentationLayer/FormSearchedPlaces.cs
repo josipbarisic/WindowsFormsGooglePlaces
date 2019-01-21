@@ -18,6 +18,7 @@ namespace PresentationLayer
 
         string sGrad;
         string sTip;
+        public List<GooglePlace> _searchedPlaces = new List<GooglePlace>();
         public FormSearchedPlaces(string grad, string tip, string label)
         {
             InitializeComponent();
@@ -29,7 +30,9 @@ namespace PresentationLayer
 
             dataGridViewSearchedPlaces.AutoGenerateColumns = false;
 
-            _tableBindingSourceSearchedPlaces.DataSource = _placeRepo.GetCityPlaces(grad, tip);
+            _searchedPlaces = _placeRepo.GetCityPlaces(grad, tip);
+
+            _tableBindingSourceSearchedPlaces.DataSource = _searchedPlaces;
             dataGridViewSearchedPlaces.DataSource = _tableBindingSourceSearchedPlaces;
 
             DataGridViewButtonColumn oAddPlaceButton = new DataGridViewButtonColumn();
@@ -39,13 +42,23 @@ namespace PresentationLayer
             oAddPlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewSearchedPlaces.Columns.Add(oAddPlaceButton);
         }
-
+        
+        //DODAJ MJESTO U MOJA MJESTA
         private void dataGridViewSearchedPlaces_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewSearchedPlaces.CurrentCell.ColumnIndex.Equals(1) && e.RowIndex != -1)
             {
-                //add place
+                var rowPlaceName = Convert.ToString(dataGridViewSearchedPlaces.Rows[e.RowIndex].Cells[0].Value);
+
+                foreach(var place in _searchedPlaces)
+                {
+                    if(place.Name == rowPlaceName)
+                    {
+                        _placeRepo.AddPlace(place);
+                    }
+                }
             }
         }
+
     }
 }
