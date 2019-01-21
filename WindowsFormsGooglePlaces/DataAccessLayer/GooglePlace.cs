@@ -13,5 +13,6 @@ namespace DataAccessLayer
         public decimal Lat { get; set; }
         public decimal Lng { get; set; }
         public string Type { get; set; }
+        public string City { get; set; }
     }
 }

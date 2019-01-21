@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace DataAccessLayer
 {
@@ -44,7 +45,7 @@ namespace DataAccessLayer
         //Metoda za izradu url-a
         public string GenerateUrl(string type, double lat, double lng)
         {
-            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius=5000&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
+            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius=10000&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
             return url;
         }       
 
@@ -65,12 +66,14 @@ namespace DataAccessLayer
         //DODAJ MJESTO
         public void AddPlace(GooglePlace place)
         {
+            var repoTypes = new TypeRepository();
+            Console.WriteLine(place.Type);
             string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
             using (DbCommand oCommand = oConnection.CreateCommand())
             {
                 
-                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + place.Type + "')";
+                oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type, City) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + repoTypes.GetTypeView(place.Type) + "','" + place.City + "')";
                 oConnection.Open();
                 using (DbDataReader oReader = oCommand.ExecuteReader())
                 {
@@ -115,7 +118,8 @@ namespace DataAccessLayer
                             Name = (string)reader["Name"],
                             Lat = (decimal)reader["Lat"],
                             Lng = (decimal)reader["Lng"],
-                            Type = (string)reader["Type"]
+                            Type = (string)reader["Type"],
+                            City = (string)reader["City"]
                         });
                     }
                 }
@@ -126,31 +130,67 @@ namespace DataAccessLayer
         //DOHVATI MJESTA PO GRADU I TIPU
         public List<GooglePlace> GetCityPlaces(string grad, string tip)
         {
-            var repoG = new CityRepository();
-            var getCities = repoG.GetCities();
+            var repoCity = new CityRepository();
+            var getCities = repoCity.GetCities();
+
+            var repoTypes = new TypeRepository();
+            var placeType = repoTypes.GetSelectedType(tip);
 
             List<GooglePlace> oPlaces = new List<GooglePlace>();
 
             foreach (var city in getCities)
             {
-                if(city.Name == grad)
+                if (String.Equals(grad, city.Name, StringComparison.OrdinalIgnoreCase))
                 {
-                    var getall = SearchPlace(tip, (double)city.Latitude, (double)city.Longitude);
+                    var getSearchResults = SearchPlace(placeType, (double)city.Latitude, (double)city.Longitude);
                     //DODAVANJE MJESTA
-                    foreach (var pl in getall)
+                    foreach (var result in getSearchResults)
                     {
                         oPlaces.Add(new GooglePlace()
                         {
-                            Id = pl.Id,
-                            Name = (pl.Name).Replace("'", "`"),
-                            Lat = pl.Lat,
-                            Lng = pl.Lng,
-                            Type = pl.Type
+                            Id = result.Id,
+                            Name = (result.Name).Replace("'", "`"),
+                            Lat = result.Lat,
+                            Lng = result.Lng,
+                            Type = result.Type,
+                            City = city.Name
                         });
                     }
                 }
             }
             return oPlaces;
+        }
+
+
+        //String grada za prikaz u naslovu forme FormSearchedPlaces
+        public string SearchedCity(string comboGrad)
+        {
+            string labelGrad;
+            if (comboGrad.EndsWith("ka"))
+            {
+                labelGrad = Regex.Replace(comboGrad, "..$", "ci");
+            }
+            else if (comboGrad.EndsWith("a"))
+            {
+                labelGrad = Regex.Replace(comboGrad, ".$", "i");
+            }
+            else if (comboGrad.EndsWith("Brod"))
+            {
+                labelGrad = "Slavonskom Brodu";
+            }
+            else if (comboGrad.EndsWith("ac"))
+            {
+                labelGrad = Regex.Replace(comboGrad, "..$", "cu");
+            }
+            else if (comboGrad.EndsWith("ar"))
+            {
+                labelGrad = Regex.Replace(comboGrad, "..$", "ru");
+            }
+            else
+            {
+                labelGrad = comboGrad + "u";
+            }
+            return labelGrad;
         }
     }
 }

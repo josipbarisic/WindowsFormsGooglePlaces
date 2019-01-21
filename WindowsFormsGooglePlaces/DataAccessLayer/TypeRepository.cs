@@ -71,13 +71,28 @@ namespace DataAccessLayer
         //DOHVATI ODABRANI TIP
         public string GetSelectedType(string type)
         {
-            string sTip = "Tip nije pronaden";
+            string sTip = "Tip nije pronađen";
             var oTypes = GetAllTypes();
             foreach(var tip in oTypes)
             {
                 if(type == tip.sTypeView)
                 {
                     sTip = tip.sType;
+                }
+            }
+            return sTip;
+        }
+
+        //Convert sType u sTypeView
+        public string GetTypeView(string type)
+        {
+            string sTip = "Tip nije pronađen";
+            var oTypes = GetAllTypes();
+            foreach (var tip in oTypes)
+            {
+                if (type == tip.sType)
+                {
+                    sTip = tip.sTypeView;
                 }
             }
             return sTip;

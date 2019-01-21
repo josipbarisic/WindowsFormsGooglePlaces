@@ -35,7 +35,11 @@ namespace ConsoleAppTester
             double longituda = Convert.ToDouble(Console.ReadLine());*/
 
             var repo = new GooglePlaceRepository();
-            //var getall = repo.SearchPlace("bus_station", 45.841820, 17.388466);
+
+            /*foreach(var ggg in getall)
+            {
+                Console.WriteLine(ggg.Name+" SPACE "+ggg.Type);
+            }*/
 
             //PRETRAGA MJESTA PO GRADU
             //var mjesta = repo.GetCityPlaces("Zagreb","political");
@@ -48,25 +52,18 @@ namespace ConsoleAppTester
             Console.WriteLine("Unesite grad i tip: ");
             var grad = Console.ReadLine();
             var tip = Convert.ToString(Console.ReadLine());
-
-
+            
             //DOHVATI GRADOVE IZ BP
             var repoG = new CityRepository();
             var getCities = repoG.GetCities();
 
             //PRETRAGA MJESTA PO GRADU I TIPU
-            foreach (var city in getCities)
-            {
-                if(String.Equals(grad, city.Name, StringComparison.OrdinalIgnoreCase))
-                {
-                    var search = repo.SearchPlace(tip, (double)city.Latitude, (double)city.Longitude);
-                    foreach(var place1 in search)
-                    {
-                        Console.WriteLine(place1.Name+"     Lat: "+place1.Lat+"     Lng:"+place1.Lng);
-                    }
-                }  
-            }
+            var gradTip = repo.GetCityPlaces(grad, tip);
             
+            foreach(var gradT in gradTip)
+            {
+                repo.AddPlace(gradT);
+            }
 
             //OBRISI MJESTO
             /*Console.WriteLine("Unesi ime:");
