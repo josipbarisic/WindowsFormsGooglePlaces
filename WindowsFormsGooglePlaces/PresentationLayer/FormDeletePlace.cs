@@ -15,32 +15,30 @@ namespace PresentationLayer
     {
         public GooglePlaceRepository _placesRepository = new GooglePlaceRepository();
 
-        string sConfirmDelete;
-
-        string sPlaceName;
+        string sPlaceId;
         public FormDeletePlace(string place)
         {
-            sPlaceName = place;
+            sPlaceId = place;
             InitializeComponent();
         }
 
         private void buttonConfirmPlaceDelete_Click(object sender, EventArgs e)
         {
-            _placesRepository.DeletePlace(sPlaceName);
+            _placesRepository.DeletePlace(sPlaceId);
+            
+            FormPlaceDeleted placeDeletedMsg = new FormPlaceDeleted();
+            placeDeletedMsg.Show();
 
-            sConfirmDelete = "true";
             this.Close();
+
         }
 
         private void buttonCancelDelete_Click(object sender, EventArgs e)
         {
-            sConfirmDelete = "false";
-            this.Close();
-        }
+            /*FormPlaces mainForm = new FormPlaces();
+            mainForm.Show();*/
 
-        public string Confirmation()
-        {
-            return sConfirmDelete;
+            this.Close();
         }
     }
 }

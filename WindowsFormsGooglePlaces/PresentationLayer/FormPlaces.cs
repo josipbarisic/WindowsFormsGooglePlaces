@@ -45,7 +45,7 @@ namespace PresentationLayer
             oDeletePlaceButton.Width = 100;
             oDeletePlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewMojaMjesta.Columns.Add(oDeletePlaceButton);
-
+            
 
 
             //Dohvati gradove u comboBoxGradovi
@@ -57,7 +57,8 @@ namespace PresentationLayer
             lTypes = _typeRepository.GetAllTypes();
             List<String> lTipovi = lTypes.Select(x => x.sTypeView).ToList();
             comboBoxTipovi.DataSource = lTipovi;
-            
+
+            tabControl.SelectedTab = tabMojaMjesta;
         }
 
         private void buttonPretragaMjesta_Click(object sender, EventArgs e)
@@ -70,29 +71,27 @@ namespace PresentationLayer
             var labelText = comboTip + " u " + gradLabel;
             FormSearchedPlaces formPretraga = new FormSearchedPlaces(comboGrad, comboTip, labelText);
             formPretraga.Show();
+
+            this.Hide();
         }
 
         private void dataGridViewMojaMjesta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridViewMojaMjesta.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+            if (dataGridViewMojaMjesta.CurrentCell.ColumnIndex.Equals(4) && e.RowIndex != -1)
             {
-                var rowPlaceName = Convert.ToString(dataGridViewMojaMjesta.Rows[e.RowIndex].Cells[0].Value);
+                var rowPlaceId = Convert.ToString(dataGridViewMojaMjesta.Rows[e.RowIndex].Cells[3].Value);
 
                 foreach (var place in _myPlaces)
                 {
-                    if (place.Name == rowPlaceName)
+                    if (place.Id == rowPlaceId)
                     {
-                        //delete funkcija i potvrdi button
 
-                        FormDeletePlace deleteForma = new FormDeletePlace(rowPlaceName);
-                        deleteForma.Show();
+                        FormDeletePlace deletePlaceForma = new FormDeletePlace(rowPlaceId);
+                        deletePlaceForma.Show();
                     }
                 }
             }
-
-            dataGridViewMojaMjesta.DataSource = null;
-            _tableBindingSourcePlaces.DataSource = _placesRepository.GetPlaces();
-            dataGridViewMojaMjesta.DataSource = _tableBindingSourcePlaces;
         }
+
     }
 }

@@ -46,19 +46,37 @@ namespace PresentationLayer
         //DODAJ MJESTO U MOJA MJESTA
         private void dataGridViewSearchedPlaces_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridViewSearchedPlaces.CurrentCell.ColumnIndex.Equals(1) && e.RowIndex != -1)
+            if (dataGridViewSearchedPlaces.CurrentCell.ColumnIndex.Equals(2) && e.RowIndex != -1)
             {
-                var rowPlaceName = Convert.ToString(dataGridViewSearchedPlaces.Rows[e.RowIndex].Cells[0].Value);
+                var rowPlaceId = Convert.ToString(dataGridViewSearchedPlaces.Rows[e.RowIndex].Cells[1].Value);
 
                 foreach(var place in _searchedPlaces)
                 {
-                    if(place.Name == rowPlaceName)
+                    if(place.Id == rowPlaceId)
                     {
-                        _placeRepo.AddPlace(place);
+                        FormAddPlace addPlaceForm = new FormAddPlace(place);
+                        addPlaceForm.Show();
+
+                        foreach (var mjesto in _placeRepo.GetPlaces())
+                        {
+                            if(rowPlaceId == mjesto.Id)
+                            {
+                                addPlaceForm.Close();
+                                FormAlreadyAdded alreadyAddedForm = new FormAlreadyAdded();
+                                alreadyAddedForm.Show();
+                            }
+                        }
+                        
                     }
                 }
             }
         }
 
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            FormPlaces mainForm = new FormPlaces();
+            mainForm.Show();
+            this.Close();
+        }
     }
 }

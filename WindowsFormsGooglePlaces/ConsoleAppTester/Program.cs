@@ -35,6 +35,10 @@ namespace ConsoleAppTester
             double longituda = Convert.ToDouble(Console.ReadLine());*/
 
             var repo = new GooglePlaceRepository();
+            foreach(var place in repo.SearchPlace("bank", 45.831646, 17.385543))
+            {
+                Console.WriteLine(place.Id +" IME: "+ place.Name);
+            }
 
             /*foreach(var ggg in getall)
             {

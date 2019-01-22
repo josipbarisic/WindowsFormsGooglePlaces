@@ -41,6 +41,7 @@
             this.PlaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdMjesta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.Pretraga.SuspendLayout();
             this.tabMojaMjesta.SuspendLayout();
@@ -145,14 +146,17 @@
             // 
             // dataGridViewMojaMjesta
             // 
+            this.dataGridViewMojaMjesta.AllowUserToAddRows = false;
             this.dataGridViewMojaMjesta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMojaMjesta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewMojaMjesta.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewMojaMjesta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMojaMjesta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlaceName,
             this.Type,
-            this.City});
+            this.City,
+            this.IdMjesta});
             this.dataGridViewMojaMjesta.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewMojaMjesta.Name = "dataGridViewMojaMjesta";
             this.dataGridViewMojaMjesta.Size = new System.Drawing.Size(517, 388);
@@ -161,21 +165,34 @@
             // 
             // PlaceName
             // 
+            this.PlaceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.PlaceName.DataPropertyName = "Name";
+            this.PlaceName.FillWeight = 129.9492F;
             this.PlaceName.HeaderText = "Ime mjesta";
             this.PlaceName.Name = "PlaceName";
+            this.PlaceName.Width = 200;
             // 
             // Type
             // 
             this.Type.DataPropertyName = "Type";
+            this.Type.FillWeight = 129.9492F;
             this.Type.HeaderText = "Tip mjesta";
             this.Type.Name = "Type";
             // 
             // City
             // 
             this.City.DataPropertyName = "City";
+            this.City.FillWeight = 129.9492F;
             this.City.HeaderText = "Grad";
             this.City.Name = "City";
+            // 
+            // IdMjesta
+            // 
+            this.IdMjesta.DataPropertyName = "Id";
+            this.IdMjesta.FillWeight = 10.15228F;
+            this.IdMjesta.HeaderText = "IdMjesta";
+            this.IdMjesta.Name = "IdMjesta";
+            this.IdMjesta.Visible = false;
             // 
             // FormPlaces
             // 
@@ -183,6 +200,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 450);
             this.Controls.Add(this.tabControl);
+            this.MaximizeBox = false;
             this.Name = "FormPlaces";
             this.Text = "FormPlaces";
             this.tabControl.ResumeLayout(false);
@@ -209,6 +227,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PlaceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn City;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdMjesta;
     }
 }
 

@@ -40,6 +40,7 @@ namespace DataAccessLayer
                         Type = type
                     });
             }
+
             return _googlePlaces;
         }
         //Metoda za izradu url-a
@@ -66,13 +67,14 @@ namespace DataAccessLayer
         //DODAJ MJESTO
         public void AddPlace(GooglePlace place)
         {
+           
             var repoTypes = new TypeRepository();
-            Console.WriteLine(place.Type);
+
             string sSqlConnectionString = "Data Source = 193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
             using (DbCommand oCommand = oConnection.CreateCommand())
             {
-                
+
                 oCommand.CommandText = "INSERT INTO GooglePlaces_Places (Id, Name, Lat, Lng, Type, City) VALUES  ('" + place.Id + "', '" + place.Name + "', '" + place.Lat + "', '" + place.Lng + "', '" + repoTypes.GetTypeView(place.Type) + "','" + place.City + "')";
                 oConnection.Open();
                 using (DbDataReader oReader = oCommand.ExecuteReader())
@@ -80,16 +82,17 @@ namespace DataAccessLayer
                     oReader.Read();
                 }
             }
+                
         }
 
         //OBRISI MJESTO
-        public void DeletePlace(string naziv)
+        public void DeletePlace(string id)
         {
             string sSqlConnectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
             using (DbConnection oConnection = new SqlConnection(sSqlConnectionString))
             using (DbCommand oCommand = oConnection.CreateCommand())
             {
-                oCommand.CommandText = "DELETE FROM GooglePlaces_Places WHERE Name = '" + naziv + "'";
+                oCommand.CommandText = "DELETE FROM GooglePlaces_Places WHERE Id = '" + id + "'";
                 oConnection.Open();
                 using (DbDataReader oReader = oCommand.ExecuteReader())
                 {
