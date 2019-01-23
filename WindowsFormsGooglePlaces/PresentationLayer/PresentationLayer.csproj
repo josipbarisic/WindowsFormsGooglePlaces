@@ -88,6 +88,12 @@
     <Compile Include="FormSearchedPlaces.Designer.cs">
       <DependentUpon>FormSearchedPlaces.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormGoogleMapPlaceLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGoogleMapPlaceLocation.Designer.cs">
+      <DependentUpon>FormGoogleMapPlaceLocation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormAdded.resx">
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSearchedPlaces.resx">
       <DependentUpon>FormSearchedPlaces.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGoogleMapPlaceLocation.resx">
+      <DependentUpon>FormGoogleMapPlaceLocation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -140,7 +149,11 @@
       <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\GoogleMap.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\rsz_left-arrow.png" />
   </ItemGroup>

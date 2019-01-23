@@ -46,7 +46,7 @@ namespace DataAccessLayer
         //Metoda za izradu url-a
         public string GenerateUrl(string type, double lat, double lng)
         {
-            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius=10000&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
+            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+ lat + ","+ lng +"&radius=5000&type="+ type +"&key=AIzaSyDqRf_8ncNpVfYKi4VsHlsC7BzVjCC716s";
             return url;
         }       
 

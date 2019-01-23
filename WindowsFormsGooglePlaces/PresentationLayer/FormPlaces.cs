@@ -13,6 +13,7 @@ namespace PresentationLayer
 {
     public partial class FormPlaces : Form
     {
+        
         public List<City> lCities;
         private CityRepository _citiesRepository = new CityRepository();
 
@@ -38,12 +39,17 @@ namespace PresentationLayer
             //Popuni moja mjesta
             _tableBindingSourcePlaces.DataSource = _myPlaces;
             dataGridViewMojaMjesta.DataSource = _tableBindingSourcePlaces;
+            
+            DataGridViewImageColumn oShowPlaceButton = new DataGridViewImageColumn();
+            oShowPlaceButton.Image = Image.FromFile("Resources/GoogleMap.ico");
+            oShowPlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewMojaMjesta.Columns.Add(oShowPlaceButton);
+
 
             DataGridViewButtonColumn oDeletePlaceButton = new DataGridViewButtonColumn();
             oDeletePlaceButton.Text = "Obrisi mjesto";
             oDeletePlaceButton.UseColumnTextForButtonValue = true;
-            oDeletePlaceButton.Width = 100;
-            oDeletePlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            oDeletePlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             dataGridViewMojaMjesta.Columns.Add(oDeletePlaceButton);
             
 
@@ -58,6 +64,7 @@ namespace PresentationLayer
             List<String> lTipovi = lTypes.Select(x => x.sTypeView).ToList();
             comboBoxTipovi.DataSource = lTipovi;
 
+            //Prikazi moja mjesta tab pri pokretanju forme
             tabControl.SelectedTab = tabMojaMjesta;
         }
 
@@ -77,7 +84,23 @@ namespace PresentationLayer
 
         private void dataGridViewMojaMjesta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Button mjesto na karti
             if (dataGridViewMojaMjesta.CurrentCell.ColumnIndex.Equals(4) && e.RowIndex != -1)
+            {
+                var rowPlaceId = Convert.ToString(dataGridViewMojaMjesta.Rows[e.RowIndex].Cells[3].Value);
+
+                foreach (var place in _myPlaces)
+                {
+                    if (place.Id == rowPlaceId)
+                    {
+
+                        FormGoogleMapPlaceLocation formMap = new FormGoogleMapPlaceLocation(place.Name, (double)place.Lat, (double)place.Lng);
+                        formMap.Show();
+                    }
+                }
+            }
+            //Button obrisi mjesto
+            if (dataGridViewMojaMjesta.CurrentCell.ColumnIndex.Equals(5) && e.RowIndex != -1)
             {
                 var rowPlaceId = Convert.ToString(dataGridViewMojaMjesta.Rows[e.RowIndex].Cells[3].Value);
 

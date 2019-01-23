@@ -29,16 +29,19 @@
         private void InitializeComponent()
         {
             this.dataGridViewSearchedPlaces = new System.Windows.Forms.DataGridView();
-            this.SearchedPlaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IdMjesta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeCityLabel = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
+            this.SearchedPlaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdMjesta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSearchedPlaces)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewSearchedPlaces
             // 
             this.dataGridViewSearchedPlaces.AllowUserToAddRows = false;
+            this.dataGridViewSearchedPlaces.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSearchedPlaces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewSearchedPlaces.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewSearchedPlaces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -50,23 +53,13 @@
             this.dataGridViewSearchedPlaces.RowHeadersVisible = false;
             this.dataGridViewSearchedPlaces.Size = new System.Drawing.Size(674, 277);
             this.dataGridViewSearchedPlaces.TabIndex = 0;
-            this.dataGridViewSearchedPlaces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedPlaces_CellContentClick);
-            // 
-            // SearchedPlaceName
-            // 
-            this.SearchedPlaceName.DataPropertyName = "Name";
-            this.SearchedPlaceName.HeaderText = "Name";
-            this.SearchedPlaceName.Name = "SearchedPlaceName";
-            // 
-            // IdMjesta
-            // 
-            this.IdMjesta.DataPropertyName = "Id";
-            this.IdMjesta.HeaderText = "IdMjesta";
-            this.IdMjesta.Name = "IdMjesta";
-            this.IdMjesta.Visible = false;
+            this.dataGridViewSearchedPlaces.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSearchedPlaces_CellClick);
             // 
             // typeCityLabel
             // 
+            this.typeCityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.typeCityLabel.AutoSize = true;
             this.typeCityLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.typeCityLabel.Location = new System.Drawing.Point(12, 22);
@@ -77,6 +70,7 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.buttonBack.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonBack.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -93,6 +87,19 @@
             this.buttonBack.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonBack.UseVisualStyleBackColor = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // SearchedPlaceName
+            // 
+            this.SearchedPlaceName.DataPropertyName = "Name";
+            this.SearchedPlaceName.HeaderText = "Ime mjesta";
+            this.SearchedPlaceName.Name = "SearchedPlaceName";
+            // 
+            // IdMjesta
+            // 
+            this.IdMjesta.DataPropertyName = "Id";
+            this.IdMjesta.HeaderText = "IdMjesta";
+            this.IdMjesta.Name = "IdMjesta";
+            this.IdMjesta.Visible = false;
             // 
             // FormSearchedPlaces
             // 

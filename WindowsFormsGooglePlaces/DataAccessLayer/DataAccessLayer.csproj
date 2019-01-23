@@ -47,7 +47,6 @@
     <Compile Include="CityRepository.cs" />
     <Compile Include="GooglePlace.cs" />
     <Compile Include="GooglePlaceRepository.cs" />
-    <Compile Include="GooglePlaceVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Type.cs" />
     <Compile Include="TypeRepository.cs" />

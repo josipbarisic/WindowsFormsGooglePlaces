@@ -35,17 +35,22 @@ namespace PresentationLayer
             _tableBindingSourceSearchedPlaces.DataSource = _searchedPlaces;
             dataGridViewSearchedPlaces.DataSource = _tableBindingSourceSearchedPlaces;
 
+            DataGridViewImageColumn oShowPlaceButton = new DataGridViewImageColumn();
+            oShowPlaceButton.Image = Image.FromFile("Resources/GoogleMap.ico");
+            oShowPlaceButton.Width = 50;
+            oShowPlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridViewSearchedPlaces.Columns.Add(oShowPlaceButton);
+
             DataGridViewButtonColumn oAddPlaceButton = new DataGridViewButtonColumn();
             oAddPlaceButton.Text = "Dodaj mjesto";
             oAddPlaceButton.UseColumnTextForButtonValue = true;
-            oAddPlaceButton.Width = 100;
-            oAddPlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            oAddPlaceButton.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
             dataGridViewSearchedPlaces.Columns.Add(oAddPlaceButton);
         }
         
-        //DODAJ MJESTO U MOJA MJESTA
-        private void dataGridViewSearchedPlaces_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewSearchedPlaces_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Button mjesto na karti
             if (dataGridViewSearchedPlaces.CurrentCell.ColumnIndex.Equals(2) && e.RowIndex != -1)
             {
                 var rowPlaceId = Convert.ToString(dataGridViewSearchedPlaces.Rows[e.RowIndex].Cells[1].Value);
@@ -54,19 +59,34 @@ namespace PresentationLayer
                 {
                     if(place.Id == rowPlaceId)
                     {
+                        FormGoogleMapPlaceLocation formMap = new FormGoogleMapPlaceLocation(place.Name, (double)place.Lat, (double)place.Lng);
+                        formMap.Show();
+                    }
+                }
+            }
+
+            //Button dodaj mjesto
+            if (dataGridViewSearchedPlaces.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+            {
+                var rowPlaceId = Convert.ToString(dataGridViewSearchedPlaces.Rows[e.RowIndex].Cells[1].Value);
+
+                foreach (var place in _searchedPlaces)
+                {
+                    if (place.Id == rowPlaceId)
+                    {
                         FormAddPlace addPlaceForm = new FormAddPlace(place);
                         addPlaceForm.Show();
 
                         foreach (var mjesto in _placeRepo.GetPlaces())
                         {
-                            if(rowPlaceId == mjesto.Id)
+                            if (rowPlaceId == mjesto.Id)
                             {
                                 addPlaceForm.Close();
                                 FormAlreadyAdded alreadyAddedForm = new FormAlreadyAdded();
                                 alreadyAddedForm.Show();
                             }
                         }
-                        
+
                     }
                 }
             }
